@@ -90,13 +90,14 @@ c.menu();
 
 }
 
-public void optimal() throws IOException{
+ public void optimal() throws IOException{
         menu c = new menu();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int numframes;
         int p = 0;
         int hit = 0;
         int fault = 0;
+       
         //int search = -1;
         int numsize;
         int frm[];
@@ -117,11 +118,19 @@ public void optimal() throws IOException{
                 frm[j] = -1;
        
         System.out.println("enter the refrence values to use the algo : ");
-//        for(int i = 0; i < numsize; i++)
-//        {
-//            sizearr[i] = Integer.parseInt(br.readLine());
-//        }
-//        System.out.println();
+         System.out.println("press 1 to enter the refrence values and 2 to retrieve it from file");
+          int choice;
+         Scanner sc = new Scanner(System.in);
+     choice= sc.nextInt();
+         if(choice==1){
+        for(int i = 0; i < numsize; i++)
+        {
+            sizearr[i] = Integer.parseInt(br.readLine());
+        }
+       
+        System.out.println();
+          }
+        if(choice==2){
        File f=new File("readtext.txt");
        Scanner s=new Scanner(f);
        int ctr=0;
@@ -135,6 +144,8 @@ public void optimal() throws IOException{
            sizearr[i]=s1.nextInt();
        }
        System.out.println();
+        }
+           
         for(int i = 0; i < numsize; i++)
         {
                  boolean hoba=false;
@@ -145,6 +156,7 @@ public void optimal() throws IOException{
           {
 //           search = j;
               hoba=true;
+           System.out.println(frm[j]+" is a page hit");
            hit++;
            break;
           }
@@ -163,6 +175,9 @@ public void optimal() throws IOException{
              {
               index[k] = j;
               index_flag[k] = true;
+              System.out.println(sizearr[i]+" is a page fault");
+
+              p++;
               break;
              }
             }
@@ -184,13 +199,16 @@ public void optimal() throws IOException{
           }
           frm[p] = sizearr[i];
           fault++;
+           
           if(!isFull)
           {
+             
            p++;
               if(p == numframes)
               {
                p = 0;
                isFull = true;
+               
               }
           }
          }
@@ -206,13 +224,13 @@ public void optimal() throws IOException{
         }
        
         System.out.println("The number of Hits: " + hit);
-        //System.out.println("Hit Ratio: " + (float)((float)hit/ref_len));
         System.out.println("The number of Faults: " + fault);
        c.menu();
     }
    
 
-
+   
+    
 
 public void lru() throws IOException{
 
@@ -431,4 +449,7 @@ public void lru() throws IOException{
 }
 
 
-      }
+      } 
+        
+        
+        
